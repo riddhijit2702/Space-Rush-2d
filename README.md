@@ -1,2 +1,2 @@
-# Space-Rush-2d
-My very own game 
+# asynchronousBallMovement
+Boiler plate for ball moving aysnchronously
