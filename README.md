@@ -1,2 +1,2 @@
-# asynchronousBallMovement
-Boiler plate for ball moving aysnchronously
+# Space Rush Game 2D
+
