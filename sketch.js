@@ -27,7 +27,7 @@ function preload(){
    explosion = loadAnimation("1.png","2.png","3.png","4.png","5.png");
   heartImg=loadImage("heart.png")
   //laserImg=loadImage("laser.png")
-  bossImg=loadImage("alien_PNG4.png")
+  
   laserImg=loadImage("imageedit_0_3926599966.png")
 gameOverImg=loadImage("gameOver.png")
 awardImg=loadImage("awardTrophy.png")
