@@ -13,6 +13,9 @@ var heart1,heart2,heart3;
 var heartImg;
 var laser,laserImg;
 var boss,bossImg;
+var bulletGrpEnemy;
+var backSound;
+var hearts=5;
 function preload(){
    spaceImg=loadImage("space.jpg") 
    alienship1Img=loadImage("Alien Spaceship 1.png")
@@ -21,6 +24,9 @@ function preload(){
   heartImg=loadImage("heart.png")
   laserImg=loadImage("laser.png")
   bossImg=loadImage("boss.png")
+  laserImg=loadImage("imageedit_0_3926599966.png")
+backSound=loadSound("Among Us Airship - New Map Trailer Music.mp4")
+  
 }
 function setup(){
     background('red')
@@ -44,7 +50,7 @@ function setup(){
     spaceShuttle.visible = false;
 
     edges = createEdgeSprites();
-
+   bulletGrpEnemy= new Group();
     alienship1Grp = new Group();
     bulletGrp = new Group();
 }
@@ -56,14 +62,36 @@ function draw (){
     })
     
     if(gameState===1){
+       backSound.loop();
         button.hide();
         spaceShuttle.visible = true;
         spaceship1();
-        heart1=createSprite(45,125);
+        heart1=createSprite(40,125);
         heart1.addImage(heartImg);
+        heart1.scale=0.1;
 
+
+        heart2=createSprite(90,125);
+        heart2.addImage(heartImg);
+        heart2.scale=0.1;
+
+        heart3=createSprite(140,125);
+        heart3.addImage(heartImg);
+        heart3.scale=0.1;
+
+        heart4=createSprite(190,125);
+        heart4.addImage(heartImg);
+        heart4.scale=0.1;
+       
+        heart5=createSprite(240,125);
+        heart5.addImage(heartImg);
+        heart5.scale=0.1;
      
     }
+   
+       
+     
+    
  
     
     if(space.y<0){
@@ -74,9 +102,13 @@ if(score===500){
 }
     if(bulletGrp.isTouching(alienship1Grp)){
         alienship1Grp.destroyEach();
-        alienship1Grp.setAnimationEach(explosion);
+        ignition= createSprite(alienship1.x,alienship1.y)
+        ignition.addAnimation("burning",explosion)
+        ignition.lifetime=50;
+        bulletGrpEnemy.destroyEach();
         bulletGrp.destroyEach();
-        score++;
+      
+        score+10;
     }
 
     
@@ -90,7 +122,7 @@ fill('red')
 
 function spaceship1(){
     
-        if(gameState===1 && frameCount %300 === 0){
+        if(gameState===1 && frameCount %100 === 0){
         alienship1=createSprite(random(spaceShuttle.x,1000),random(20,spaceShuttle.y -200));
         alienship1.addImage(alienship1Img)
         alienship1.depth=space.depth+1
@@ -98,51 +130,51 @@ function spaceship1(){
         alienship1.lifetime = 200;
         alienship1Grp.add(alienship1);
         bullet_enemy=createSprite(alienship1.x,alienship1.y,10,10);
-        bullet_enemy.velocityX = -10;
-        bullet_enemy.velocityY = 10;
+        bullet_enemy.velocityX = -20;
+        bullet_enemy.velocityY = 20;
         bullet_enemy.addImage(laserImg);
-        bullet_enemy.scale=0.5
+        bullet_enemy.scale=1.5
         bullet_enemy.lifetime=200;
+        bulletGrpEnemy.add(bullet_enemy);
         
          }
 
-         if(gameState===2 && frameCount %200 === 0){
-            alienship1=createSprite(random(spaceShuttle.x,1000),random(20,spaceShuttle.y -200));
-            alienship1.addImage(alienship1Img)
-            alienship1.depth=space.depth+1
-            alienship1.scale=0.2;
-            //alienship1.lifetime = 200;
-            alienship1Grp.add(alienship1);
-            bullet_enemy=createSprite(alienship1.x,alienship1.y,10,10);
-            bullet_enemy.velocityX = -10;
-            bullet_enemy.velocityY = 10;
-             }
+        if(bulletGrpEnemy.isTouching(spaceShuttle)){
+        hearts-1;
+        switch (hearts){
+            case 5: heart5.destroy();
+            break ;
+            case 4: heart4.destroy()
+            break;
+            case 3: heart3.destroy();
+            break ;
+            case 2: heart2.destroy();
+            break ;
+            case 1: heart1.destroy();
+            break ;
+        }
+        console.log(hearts);
+    } 
+        
 
 }
 function keyPressed(){
     if(keyCode===32){
-        bullet=createSprite(spaceShuttle.x,spaceShuttle.y-30,20,20)
+        bullet=createSprite(spaceShuttle.x,spaceShuttle.y-30,5,100)
         bullet.velocityY= -10;
+        bullet.shapeColor="red"
         bulletGrp.add(bullet);
     }
     if(spaceShuttle.x>100){
     if(keyCode===LEFT_ARROW){
-        spaceShuttle.x = spaceShuttle.x - 15;
+        spaceShuttle.velocityX=-5;
     }
     }   
     if(spaceShuttle.x<1100){
     if(keyCode===RIGHT_ARROW){
-        spaceShuttle.x = spaceShuttle.x + 15;
+        spaceShuttle.velocityX= 5;
     }
     }
-    if(spaceShuttle.y<600){
-    if(keyCode===DOWN_ARROW){
-        spaceShuttle.y = spaceShuttle.y + 15;
+  
     }
-    }
-    if(spaceShuttle.y>100){
-    if(keyCode===UP_ARROW){
-        spaceShuttle.y = spaceShuttle.y - 15;
-    }
-    }
-}
+
