@@ -20,6 +20,7 @@ var gameOver,gameOverImg,award,awardImg;
 var travel=0;
 var restartButton;
 var explosionSound;
+var shotsLeft=1000;
 function preload(){
    spaceImg=loadImage("space.jpg") 
    alienship1Img=loadImage("Alien Spaceship 1.png")
@@ -27,7 +28,7 @@ function preload(){
    explosion = loadAnimation("1.png","2.png","3.png","4.png","5.png");
   heartImg=loadImage("heart.png")
   //laserImg=loadImage("laser.png")
-  
+  bossImg=loadImage("alien_PNG4.png")
   laserImg=loadImage("imageedit_0_3926599966.png")
 gameOverImg=loadImage("gameOver.png")
 awardImg=loadImage("awardTrophy.png")
@@ -190,6 +191,13 @@ if(score===500){
 
     
     drawSprites();
+    if(gameState==1&&gameState!=2){
+        textFont('Algerian')
+        textSize(20)
+        fill('red')
+        text("Lasers left to Smash!! : "+shotsLeft,65,190)
+    }
+    
     if(score===500){
         textFont("Algerian");
         fill("red")
@@ -247,7 +255,7 @@ function spaceship1(){
         alienship1Grp.add(alienship1);
         bullet_enemy=createSprite(alienship1.x,alienship1.y,10,10);
         bullet_enemy.velocityX = -20;
-        bullet_enemy.velocityY = 20;
+        bullet_enemy.velocityY = -25
         bullet_enemy.addImage(laserImg);
         bullet_enemy.scale=1.5
         bullet_enemy.lifetime=200;
@@ -259,11 +267,13 @@ function spaceship1(){
 
 }
 function keyPressed(){
-    if(keyCode===32&&gameState===1&&score!=500){
+    if(keyCode===32&&gameState===1&&score!=500&&shotsLeft>=0&&shotsLeft<=1000){
         bullet=createSprite(spaceShuttle.x,spaceShuttle.y-30,5,100)
         bullet.velocityY= -10;
         bullet.shapeColor="red"
         bulletGrp.add(bullet);
+        shotsLeft=shotsLeft-1;
+        console.log(shotsLeft)
     }
     
     if(spaceShuttle.x>100){
