@@ -187,7 +187,16 @@ if(score===500){
         space.y=300
        }
    
-    
+       if (touches.length > 0 ) {
+            bullet=createSprite(spaceShuttle.x,spaceShuttle.y-30,5,100)
+            bullet.velocityY= -10;
+            bullet.shapeColor="red"
+            bullet.lifetime=500;
+            bulletGrp.add(bullet);
+            shotsLeft=shotsLeft-1;
+            console.log(shotsLeft)
+            touches = [];
+      }
 
     
     drawSprites();
