@@ -255,7 +255,7 @@ function spaceship1(){
         alienship1Grp.add(alienship1);
         bullet_enemy=createSprite(alienship1.x,alienship1.y,10,10);
         bullet_enemy.velocityX = -20;
-        bullet_enemy.velocityY = -25
+        bullet_enemy.velocityY = random(10,20);
         bullet_enemy.addImage(laserImg);
         bullet_enemy.scale=1.5
         bullet_enemy.lifetime=200;
