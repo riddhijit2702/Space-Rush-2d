@@ -21,19 +21,23 @@ var travel=0;
 var restartButton;
 var explosionSound;
 var shotsLeft=1000;
+
+var touches=[];
 function preload(){
    spaceImg=loadImage("space.jpg") 
    alienship1Img=loadImage("Alien Spaceship 1.png")
    spaceShuttleImg=loadImage("spavceshuttle.png")
    explosion = loadAnimation("1.png","2.png","3.png","4.png","5.png");
   heartImg=loadImage("heart.png")
-  //laserImg=loadImage("laser.png")
+  
   bossImg=loadImage("alien_PNG4.png")
   laserImg=loadImage("imageedit_0_3926599966.png")
 gameOverImg=loadImage("gameOver.png")
 awardImg=loadImage("awardTrophy.png")
 backSound=loadSound("yt1s.com - 20 second Royalty free intro music upbeat.mp4")
   explosionSound=loadSound("explosion sound effects.mp4")
+
+
 }
 function setup(){
     background('red')
@@ -51,7 +55,9 @@ function setup(){
   button.style('fontSize','x-large')
     button.position(500,250)
 
-    spaceShuttle=createSprite(190,460)
+
+
+    spaceShuttle=createSprite(190,550)
     spaceShuttle.addImage(spaceShuttleImg)
     spaceShuttle.scale=0.4;
     spaceShuttle.visible = false;
@@ -93,6 +99,9 @@ function draw (){
         gameState =1;
         backSound.loop();
     })
+ 
+  
+
    
     if(gameState===1){
      
@@ -101,8 +110,6 @@ function draw (){
         spaceShuttle.bounceOff(edges);
         spaceship1();
 
-        
-       
 
         if(bulletGrpEnemy.isTouching(spaceShuttle)){
             explosionSound.play();
@@ -114,7 +121,7 @@ function draw (){
             heartGrp.add(heart5);
             ignition= createSprite(spaceShuttle.x,spaceShuttle.y+20)
     ignition.addAnimation("burning",explosion)
-    ignition.scale=0.3;
+    ignition.scale=0.8;
     ignition.lifetime=20;
             bulletGrpEnemy.destroyEach();
             switch (hearts){
@@ -145,9 +152,9 @@ function draw (){
             ignition= createSprite(alienship1.x,alienship1.y)
             ignition.addAnimation("burning",explosion)
             ignition.lifetime=50;
-            bulletGrpEnemy.destroyEach();
-            bulletGrp.destroyEach();
-          
+            bullet_enemy.destroy();
+            bullet.destroy();
+
             score=score+10;
         }
          
@@ -253,6 +260,8 @@ fill('red')
 }
 
 
+
+ 
 function spaceship1(){
     
         if(gameState===1 && frameCount %100 === 0){
@@ -263,8 +272,8 @@ function spaceship1(){
         alienship1.lifetime = 200;
         alienship1Grp.add(alienship1);
         bullet_enemy=createSprite(alienship1.x,alienship1.y,10,10);
-        bullet_enemy.velocityX = -20;
-        bullet_enemy.velocityY = random(10,20);
+        bullet_enemy.velocityX = random(-20,-5);
+        bullet_enemy.velocityY = 20;
         bullet_enemy.addImage(laserImg);
         bullet_enemy.scale=1.5
         bullet_enemy.lifetime=200;
@@ -275,11 +284,13 @@ function spaceship1(){
         
 
 }
+ 
 function keyPressed(){
     if(keyCode===32&&gameState===1&&score!=500&&shotsLeft>=0&&shotsLeft<=1000){
         bullet=createSprite(spaceShuttle.x,spaceShuttle.y-30,5,100)
         bullet.velocityY= -10;
         bullet.shapeColor="red"
+        bullet.lifetime=500;
         bulletGrp.add(bullet);
         shotsLeft=shotsLeft-1;
         console.log(shotsLeft)
@@ -290,6 +301,7 @@ function keyPressed(){
         spaceShuttle.velocityX=-5;
     }
     }   
+     
     if(spaceShuttle.x<1100){
     if(keyCode===RIGHT_ARROW&&gameState===1){
         spaceShuttle.velocityX= 5;
