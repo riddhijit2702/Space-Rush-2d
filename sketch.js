@@ -45,7 +45,7 @@ function setup(){
     space=createSprite(200,200)
             space.addImage(spaceImg)
             space.scale=10
-            space.velocityY=-8+score*10-10
+           space.velocityY=-(8+3*score/20);
             
            
     button=createButton("Play Space Rush 2 D")
