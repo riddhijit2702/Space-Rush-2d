@@ -30,7 +30,7 @@ function preload(){
    explosion = loadAnimation("1.png","2.png","3.png","4.png","5.png");
   heartImg=loadImage("heart.png")
   
- 
+  bossImg=loadImage("alien_PNG4.png")
   laserImg=loadImage("imageedit_0_3926599966.png")
 gameOverImg=loadImage("gameOver.png")
 awardImg=loadImage("awardTrophy.png")
@@ -44,8 +44,8 @@ function setup(){
     createCanvas(1200,700);
     space=createSprite(200,200)
             space.addImage(spaceImg)
-            space.scale=8
-            space.velocityY=-2
+            space.scale=10
+            space.velocityY=-8+score*10-10
             
            
     button=createButton("Play Space Rush 2 D")
