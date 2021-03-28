@@ -45,7 +45,7 @@ function setup(){
     space=createSprite(200,200)
             space.addImage(spaceImg)
             space.scale=10
-           space.velocityY=-(8+3*score/20);
+            space.velocityY=-(8+3*score/20);
             
            
     button=createButton("Play Space Rush 2 D")
@@ -55,13 +55,24 @@ function setup(){
   button.style('fontSize','x-large')
     button.position(500,250)
 
-
+   
 
     spaceShuttle=createSprite(190,550)
     spaceShuttle.addImage(spaceShuttleImg)
     spaceShuttle.scale=0.4;
-    spaceShuttle.visible = false;
+    spaceShuttle.visible=false;
     spaceShuttle.setVelocity(0,0)
+
+    if (window.process&&gameState==1&&gameState!=2&&gameState!=0) {
+        window.process = {};
+        spaceShuttle.visible=true
+  spaceShuttle.x=mouseX;
+ 
+  
+      }
+      else{
+          console.log("Test ok!");
+      }
     heart1=createSprite(40,125);
     heart1.addImage(heartImg);
     heart1.scale=0.1;
@@ -194,7 +205,7 @@ if(score===500){
         space.y=300
        }
    
-       if (touches.length > 0 ) {
+       if (touches.length > 0&&gameState===1&&score!=500&&shotsLeft>=0&&shotsLeft<=1000 ) {
             bullet=createSprite(spaceShuttle.x,spaceShuttle.y-30,5,100)
             bullet.velocityY= -10;
             bullet.shapeColor="red"
