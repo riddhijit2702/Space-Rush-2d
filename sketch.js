@@ -24,7 +24,7 @@ var shotsLeft=1000;
 
 var touches=[];
 function preload(){
-   spaceImg=loadImage("space.jpg") 
+   spaceImg=loadImage("amongusSpace.jpg") 
    alienship1Img=loadImage("Alien Spaceship 1.png")
    spaceShuttleImg=loadImage("spavceshuttle.png")
    explosion = loadAnimation("1.png","2.png","3.png","4.png","5.png");
@@ -44,35 +44,24 @@ function setup(){
     createCanvas(1200,700);
     space=createSprite(200,200)
             space.addImage(spaceImg)
-            space.scale=10
+            space.scale=2
             space.velocityY=-(8+3*score/20);
             
            
     button=createButton("Play Space Rush 2 D")
-  button.style('background','black')
-  button.style('color','red')
+  //button.style('background','black')
+ // button.style('color','red')
   button.style('height','20%')
   button.style('fontSize','x-large')
     button.position(500,250)
 
-   
+
 
     spaceShuttle=createSprite(190,550)
     spaceShuttle.addImage(spaceShuttleImg)
     spaceShuttle.scale=0.4;
-    spaceShuttle.visible=false;
+    spaceShuttle.visible = false;
     spaceShuttle.setVelocity(0,0)
-
-    if (window.process&&gameState==1&&gameState!=2&&gameState!=0) {
-        window.process = {};
-        spaceShuttle.visible=true
-  spaceShuttle.x=mouseX;
- 
-  
-      }
-      else{
-          console.log("Test ok!");
-      }
     heart1=createSprite(40,125);
     heart1.addImage(heartImg);
     heart1.scale=0.1;
@@ -106,10 +95,13 @@ function setup(){
 
 function draw (){
     background("white");
-    button.mousePressed(function(){
+    
+     button.mousePressed(function(){
         gameState =1;
         backSound.loop();
-    })
+    })    
+    
+   
  
   
 
@@ -202,10 +194,10 @@ if(score===500){
  
     
     if(space.y<0){
-        space.y=300
+        space.y=150
        }
    
-       if (touches.length > 0&&gameState===1&&score!=500&&shotsLeft>=0&&shotsLeft<=1000 ) {
+       if (touches.length > 0 ) {
             bullet=createSprite(spaceShuttle.x,spaceShuttle.y-30,5,100)
             bullet.velocityY= -10;
             bullet.shapeColor="red"
@@ -266,7 +258,7 @@ if(score===500){
      }
 textSize(20);
 fill('red')
-    text(mouseX+","+mouseY,mouseX,mouseY)
+  //  text(mouseX+","+mouseY,mouseX,mouseY)
    text("Your Score :- "+score,60,70) 
 }
 
