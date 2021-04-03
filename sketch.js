@@ -1,6 +1,6 @@
 // Declare variables here
 var input
-var button,score=0;
+var button,score=400;
 var spaceImg,space
 var hr,sc,mn;
 var gameState=0
